@@ -42,12 +42,44 @@ if(class_exists('acf')){
             'menu_title' => 'Another',
             'parent_slug' => 'theme-settings'
         ));
+
+        acf_add_options_page(array(
+            'page_title' => 'Blocks',
+            'menu_title' => 'Blocks',
+            'menu_slug' => 'blocks',
+            'capability' => 'edit_posts',
+            'redirect' => true
+        ));
+
+        acf_add_options_sub_page(array(
+            'page_title' => 'Header',
+            'menu_title' => 'Header',
+            'parent_slug' => 'blocks'
+        ));
+
+        acf_add_options_sub_page(array(
+            'page_title' => 'Footer',
+            'menu_title' => 'Footer',
+            'parent_slug' => 'blocks'
+        ));
+
+        acf_add_options_sub_page(array(
+            'page_title' => 'Cookies',
+            'menu_title' => 'Cookies',
+            'parent_slug' => 'blocks'
+        ));
+
+        acf_add_options_sub_page(array(
+            'page_title' => 'About',
+            'menu_title' => 'About',
+            'parent_slug' => 'blocks'
+        ));
     }
 }
 
 // https://css-tricks.com/snippets/wordpress/allow-svg-through-wordpress-media-uploader/
-if(!function_exists('a_mine_types')){
-    function a_mine_types($mimes){
+if(!function_exists('a_mime_types')){
+    function a_mime_types($mimes){
         $mimes['svg'] = 'image/svg+xml';
         return $mimes;
     }
@@ -55,7 +87,7 @@ if(!function_exists('a_mine_types')){
 }
 
 //ADD CUSTOM IMAGE SIZE
-if(!function_exists(a_add_image_size)){
+if(!function_exists('a_add_image_size')){
     function a_add_image_size(){
         add_image_size('custom-medium', 300, 9999);
         add_image_size('custom-tablet', 600, 9999);
@@ -115,10 +147,10 @@ if(!function_exists('a_register_custom_post_types')){
             'supports' => array('title', 'thumbnail', 'revisions'),
             'labels' => a_get_custom_post_type_labels($singular_name, $plural_name),
             'menu_icon' => 'dashicons-images-alt2',
-            'show_in_rest' => true
+            'show_in_rest' => true,
         ));
     }
-    add_action('init', 'a_register_custom_post_type');
+    add_action('init', 'a_register_custom_post_types');
 }
 
 if(!function_exists('a_get_custom_post_type_labels')){
